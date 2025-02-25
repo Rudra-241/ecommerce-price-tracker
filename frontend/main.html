@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Chart Application</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+		<link rel="stylesheet" href="styles/main.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="hamburger" id="hamburger">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="search-bar">
+				<input type="text" placeholder="Search..." />
+			</div>
+			<button class="add-btn" id="addBtn">Add</button>
+			<div class="profile">
+				<div class="profile-icon"></div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="sidebar" id="sidebar">
+				<!-- Entries will be added here dynamically -->
+			</div>
+
+			<div class="main-content" id="mainContent">
+				<div class="chart-container">
+					<canvas id="myChart"></canvas>
+				</div>
+				<div class="product-description">
+					<h2>Product Description Here</h2>
+					<p id="productDetails" class="hidden">
+						Select an entry to view details
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// DOM Elements
+			const hamburger = document.getElementById("hamburger");
+			const sidebar = document.getElementById("sidebar");
+			const mainContent = document.getElementById("mainContent");
+			const addBtn = document.getElementById("addBtn");
+			const productDetails = document.getElementById("productDetails");
+
+			// Counter for generating unique entry IDs
+			let entryCounter = 1;
+			let activeEntryId = null;
+			let chart = null;
+
+			// Sample data for different entries
+			const sampleData = [
+				{
+					label: "Entry 1",
+					data: {
+						labels: [
+							"Monday",
+							"Tuesday",
+							"Wednesday",
+							"Thursday",
+							"Friday",
+							"Saturday",
+							"Sunday",
+						],
+						values: [10, 30, 50, 70, 20, 40, 60],
+					},
+					description:
+						"This is the first product. It shows an increasing trend during weekdays with a drop on Friday.",
+				},
+				{
+					label: "Entry 2",
+					data: {
+						labels: [
+							"Monday",
+							"Tuesday",
+							"Wednesday",
+							"Thursday",
+							"Friday",
+							"Saturday",
+							"Sunday",
+						],
+						values: [50, 40, 30, 45, 60, 70, 65],
+					},
+					description:
+						"This is the second product. It shows a decreasing trend initially but recovers towards the weekend.",
+				},
+				{
+					label: "Entry 3",
+					data: {
+						labels: [
+							"Monday",
+							"Tuesday",
+							"Wednesday",
+							"Thursday",
+							"Friday",
+							"Saturday",
+							"Sunday",
+						],
+						values: [30, 35, 40, 45, 50, 45, 40],
+					},
+					description:
+						"This is the third product. It shows a steady increase followed by a slight decrease.",
+				},
+				{
+					label: "Entry 4",
+					data: {
+						labels: [
+							"Monday",
+							"Tuesday",
+							"Wednesday",
+							"Thursday",
+							"Friday",
+							"Saturday",
+							"Sunday",
+						],
+						values: [70, 65, 60, 55, 50, 60, 70],
+					},
+					description:
+						"This is the fourth product. It shows a declining trend that recovers on the weekend.",
+				},
+			];
+
+			// Toggle sidebar
+			hamburger.addEventListener("click", () => {
+				sidebar.classList.toggle("closed");
+				mainContent.classList.toggle("full");
+
+				// Resize chart after sidebar toggle for proper display
+				if (chart) {
+					setTimeout(() => {
+						chart.resize();
+					}, 300);
+				}
+			});
+
+			// Add a new entry
+			addBtn.addEventListener("click", () => {
+				const entryId = `entry-${entryCounter}`;
+				const randomDataIndex = Math.floor(
+					Math.random() * sampleData.length
+				);
+
+				const entry = document.createElement("div");
+				entry.className = "entry";
+				entry.id = entryId;
+				entry.textContent = `Product ${entryCounter}`;
+				entry.dataset.index = randomDataIndex;
+
+				entry.addEventListener("click", () => {
+					selectEntry(entryId, randomDataIndex);
+				});
+
+				sidebar.appendChild(entry);
+				entryCounter++;
+
+				// Select newly added entry if it's the first one
+				if (entryCounter === 2) {
+					selectEntry(entryId, randomDataIndex);
+				}
+			});
+
+			// Select an entry and update the chart and description
+			function selectEntry(entryId, dataIndex) {
+				// Remove active class from previous entry
+				if (activeEntryId) {
+					document
+						.getElementById(activeEntryId)
+						.classList.remove("active");
+				}
+
+				// Add active class to selected entry
+				document.getElementById(entryId).classList.add("active");
+				activeEntryId = entryId;
+
+				// Update chart and description
+				updateChart(dataIndex);
+				updateProductDescription(dataIndex);
+			}
+
+			// Update chart with data from selected entry
+			function updateChart(dataIndex) {
+				const ctx = document.getElementById("myChart").getContext("2d");
+				const entryData = sampleData[dataIndex];
+
+				// Destroy previous chart if exists
+				if (chart) {
+					chart.destroy();
+				}
+
+				// Create new chart
+				chart = new Chart(ctx, {
+					type: "line",
+					data: {
+						labels: entryData.data.labels,
+						datasets: [
+							{
+								label: entryData.label,
+								data: entryData.data.values,
+								fill: true,
+								backgroundColor: "rgba(179, 136, 209, 0.2)",
+								borderColor: "rgba(126, 87, 194, 1)",
+								borderWidth: 2,
+								tension: 0.1,
+							},
+						],
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						scales: {
+							y: {
+								beginAtZero: true,
+								grid: {
+									color: "rgba(0, 0, 0, 0.1)",
+								},
+								ticks: {
+									font: {
+										size: 12,
+									},
+								},
+							},
+							x: {
+								grid: {
+									color: "rgba(0, 0, 0, 0.1)",
+								},
+								ticks: {
+									font: {
+										size: 12,
+									},
+								},
+							},
+						},
+						plugins: {
+							legend: {
+								display: false,
+							},
+						},
+					},
+				});
+			}
+
+			// Update product description
+			function updateProductDescription(dataIndex) {
+				const productDetails =
+					document.getElementById("productDetails");
+				productDetails.textContent = sampleData[dataIndex].description;
+				productDetails.classList.remove("hidden");
+			}
+
+			// Add initial entries
+			for (let i = 0; i < 4; i++) {
+				addBtn.click();
+			}
+		</script>
+	</body>
+</html>
