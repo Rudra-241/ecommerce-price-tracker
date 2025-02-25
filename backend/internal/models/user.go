@@ -12,7 +12,7 @@ const (
 )
 
 type User struct {
-	ID              uint      `gorm:"primaryKey"`
+	ID              uint      `gorm:"primaryKey"` // TODO: change primary key
 	Email           string    `gorm:"uniqueIndex;not null"`
 	Password        string    `gorm:"not null"`
 	Role            Role      `gorm:"not null"`

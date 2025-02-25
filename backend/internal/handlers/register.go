@@ -4,8 +4,10 @@ import (
 	"ecommerce-price-tracker/internal/db"
 	"ecommerce-price-tracker/internal/models"
 	"ecommerce-price-tracker/pkg/utils"
+	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -53,7 +55,7 @@ func CreateUser(c *gin.Context) {
 			"error": "User already exists",
 		})
 		return
-	} else if result.Error != gorm.ErrRecordNotFound {
+	} else if !errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		tx.Rollback()
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Database error",
@@ -76,8 +78,8 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	fmt.Print(registration.ID)
-	refresh_token, _ := utils.CreateToken(fmt.Sprint(registration.ID), registration.Email, models.Customer, utils.RefreshToken)
-	access_token, _ := utils.CreateToken(fmt.Sprint(registration.ID), registration.Email, models.Customer, utils.AccessToken)
+	refresh_token, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.RefreshToken)
+	access_token, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.AccessToken)
 	c.SetCookie("refresh-token", refresh_token, 7*24*3600, "/", "localhost", true, true)
 	c.SetCookie("access-token", access_token, 3600, "/", "localhost", true, true)
 
