@@ -1,10 +1,30 @@
 package models
 
 import (
+	"gorm.io/gorm"
 	"time"
 )
 
 //TODO: add `json:"fieldname"` thing to every attribute
+
+type PriceState string
+
+const (
+	Increased  = "Increased"
+	Decreased  = "Decreased"
+	Unchanged  = "Unchanged"
+	BelowStart = "BelowStart"
+)
+
+func (p *PriceState) Scan(value interface{}) error {
+	*p = PriceState(value.(string))
+	return nil
+}
+
+func (p *Product) AfterUpdate(tx *gorm.DB) (err error) {
+	p.ModifiedAt = time.Now()
+	return nil
+}
 
 type PriceStamp struct {
 	ID        uint      `gorm:"primaryKey"`
@@ -21,6 +41,8 @@ type Product struct {
 	Url           string
 	PriceHistory  []PriceStamp `gorm:"foreignKey:ProductID"`
 	UsersTracking []User       `gorm:"many2many:tracked;"`
+	Direction     PriceState   `gorm:"default:Unchanged;not null"`
+	ModifiedAt    time.Time    `gorm:"default:CURRENT_TIMESTAMP"`
 }
 
 type ProductInfo struct {

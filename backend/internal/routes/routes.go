@@ -13,4 +13,5 @@ func SetupRoutes(r *gin.Engine) {
 	api.POST("/login", handlers.LoginUser)
 	api.POST("/product", handlers.CreateProduct)
 	api.GET("/products", handlers.GetTrackedProducts)
+	api.GET("/product/:id", handlers.GetPriceHistory)
 }

@@ -3,17 +3,52 @@ package main
 import (
 	"ecommerce-price-tracker/internal/db"
 	"ecommerce-price-tracker/internal/routes"
+	"ecommerce-price-tracker/internal/services"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"os"
 )
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		fmt.Println("Error loading .env file")
+	}
+
 	r := gin.Default()
 	routes.SetupRoutes(r)
 
-	db.InitWithDSN("host=localhost user=rudraaa password=admin dbname=webscraper port=5432 sslmode=disable") // TODO: .env-ify this
+	host := os.Getenv("DB_HOST")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+	port := os.Getenv("DB_PORT")
+	sslmode := os.Getenv("DB_SSLMODE")
 
-	err := r.Run("localhost:3000")
+	if host == "" || user == "" || password == "" || dbname == "" || port == "" {
+		fmt.Println("Error: Required database environment variables are not set")
+		fmt.Println("Please set DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, and DB_PORT")
+		return
+	}
+
+	if sslmode == "" {
+		sslmode = "disable"
+	}
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
+		host, user, password, dbname, port, sslmode)
+
+	db.InitWithDSN(dsn)
+	go services.RunUpdaterJob()
+
+	serverPort := os.Getenv("SERVER_PORT")
+	if serverPort == "" {
+		serverPort = "3000"
+	}
+
+	err := r.Run("localhost:" + serverPort)
 	if err != nil {
+		fmt.Printf("Error starting server: %v\n", err)
 		return
 	}
 }

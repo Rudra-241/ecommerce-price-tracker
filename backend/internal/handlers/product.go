@@ -166,3 +166,65 @@ func GetTrackedProducts(c *gin.Context) {
 		"tracked_products": user.TrackedProducts,
 	})
 }
+
+func GetPriceHistory(c *gin.Context) {
+	productID := c.Param("id")
+	if productID == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Product ID is required",
+		})
+		return
+	}
+
+	userID, exists := c.Get("userID")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"error": "User not authenticated",
+		})
+		return
+	}
+
+	dbb := db.GetDB()
+
+	var user models.User
+	if err := dbb.Preload("TrackedProducts", "id = ?", productID).Where("id = ?", userID).First(&user).Error; err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"error": "User not found",
+		})
+		return
+	}
+
+	//check if user is currently tracking the product or not
+
+	if len(user.TrackedProducts) == 0 {
+		c.JSON(http.StatusForbidden, gin.H{
+			"error": "User is not tracking this product",
+		})
+		return
+	}
+
+	var product models.Product
+	if err := dbb.Preload("PriceHistory", func(db *gorm.DB) *gorm.DB {
+		return db.Order("changed_at ASC")
+	}).First(&product, productID).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			c.JSON(http.StatusNotFound, gin.H{
+				"error": "Product not found",
+			})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "Failed to fetch product data",
+			})
+		}
+		return
+	}
+
+	response := gin.H{
+		"product_id":    product.ID,
+		"product_name":  product.Name,
+		"current_price": product.Price,
+		"price_history": product.PriceHistory,
+	}
+
+	c.JSON(http.StatusOK, response)
+}
