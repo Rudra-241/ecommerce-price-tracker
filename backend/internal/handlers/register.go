@@ -32,9 +32,9 @@ func CreateUser(c *gin.Context) {
 	}
 	registration.Password = hashedPassword
 
-	db := db.GetDB()
+	dbb := db.GetDB()
 
-	tx := db.Begin()
+	tx := dbb.Begin()
 	if tx.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Failed to start database transaction",

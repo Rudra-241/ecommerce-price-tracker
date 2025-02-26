@@ -23,4 +23,5 @@ func SetupRoutes(r *gin.Engine) {
 			"message": fmt.Sprintf("this is just a test, you're %v %s %v ", uid, email, role),
 		})
 	})
+	api.POST("/product", handlers.CreateProduct)
 }

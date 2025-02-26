@@ -4,17 +4,18 @@ import (
 	"ecommerce-price-tracker/internal/models"
 	"errors"
 	"fmt"
-	"net/http"
-	"strconv"
-	"strings"
-
 	"github.com/PuerkitoBio/goquery"
+	"io"
+	"log"
+	"net/http"
+	"regexp"
+	"strconv"
 )
 
-func GetNameAndPrice(url string) (models.Product, error) {
+func GetNameAndPrice(url string) (models.ProductInfo, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return models.Product{}, fmt.Errorf("error creating request: %w", err)
+		return models.ProductInfo{}, fmt.Errorf("error creating request: %w", err)
 	}
 
 	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0")
@@ -24,47 +25,63 @@ func GetNameAndPrice(url string) (models.Product, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return models.Product{}, fmt.Errorf("error making request: %w", err)
+		return models.ProductInfo{}, fmt.Errorf("error making request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}(resp.Body)
 
 	if resp.StatusCode != http.StatusOK {
-		return models.Product{}, fmt.Errorf("error: received status code %d", resp.StatusCode)
+		return models.ProductInfo{}, fmt.Errorf("error: received status code %d", resp.StatusCode)
 	}
 
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
-		return models.Product{}, fmt.Errorf("error parsing HTML: %w", err)
+		return models.ProductInfo{}, fmt.Errorf("error parsing HTML: %w", err)
 	}
 
-	var product models.Product
+	var ProductInfo models.ProductInfo
 
 	priceText := ""
-	doc.Find(".VU-ZEz").Each(func(i int, s *goquery.Selection) {
+	doc.Find(".CxhGGd").Each(func(i int, s *goquery.Selection) {
 		priceText = s.Text()
 	})
 
 	if priceText == "" {
-		return models.Product{}, errors.New("error: unable to extract price")
+		return models.ProductInfo{}, errors.New("error: unable to extract price")
 	}
 
-	priceText = strings.ReplaceAll(priceText, ",", "")
+	re := regexp.MustCompile(`(?i)rs|₹|[.,]`)
+	priceText = re.ReplaceAllString(priceText, "")
+	fmt.Print(priceText)
 	price, err := strconv.ParseFloat(priceText, 64)
 	if err != nil {
-		return models.Product{}, fmt.Errorf("error parsing price: %w", err)
+		return models.ProductInfo{}, fmt.Errorf("error parsing price: %w", err)
 	}
 
 	name := ""
-	doc.Find(".CxhGGd").Each(func(i int, s *goquery.Selection) {
+	doc.Find(".VU-ZEz").Each(func(i int, s *goquery.Selection) {
 		name = s.Text()
 	})
-
 	if name == "" {
-		return models.Product{}, errors.New("error: unable to extract product name")
+		return models.ProductInfo{}, errors.New("error: unable to extract ProductInfo name")
 	}
 
-	product.Name = name
-	product.Price = price
+	imgUrl := ""
+	var ok bool
+	doc.Find(".jLEJ7H").Each(func(i int, s *goquery.Selection) {
+		imgUrl, ok = s.Attr("src")
+		if !ok {
+			imgUrl = ""
+		}
+	})
 
-	return product, nil
+	ProductInfo.Name = name
+	ProductInfo.Price = price
+	ProductInfo.ImgLink = imgUrl
+	fmt.Println(ProductInfo)
+	return ProductInfo, nil
 }
