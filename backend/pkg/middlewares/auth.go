@@ -59,7 +59,6 @@ func AuthMiddleware() gin.HandlerFunc {
 				c.Abort()
 				return
 			}
-
 			newAccessToken, err := utils.CreateToken(refreshClaims.UserID, refreshClaims.Email, models.Customer, utils.AccessToken)
 			if err != nil {
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create new access token"})

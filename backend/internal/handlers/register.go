@@ -78,10 +78,11 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	fmt.Print(registration.ID)
-	refresh_token, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.RefreshToken)
-	access_token, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.AccessToken)
-	c.SetCookie("refresh-token", refresh_token, 7*24*3600, "/", "localhost", true, true)
-	c.SetCookie("access-token", access_token, 3600, "/", "localhost", true, true)
+	
+	refreshToken, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.RefreshToken)
+	accessToken, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.AccessToken)
+	c.SetCookie("refresh-token", refreshToken, 7*24*3600, "/", "localhost", true, true)
+	c.SetCookie("access-token", accessToken, 3600, "/", "localhost", true, true)
 
 	c.JSON(http.StatusCreated, gin.H{
 		"message": "User created successfully",

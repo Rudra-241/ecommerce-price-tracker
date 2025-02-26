@@ -2,6 +2,7 @@ package services
 
 import (
 	"ecommerce-price-tracker/internal/models"
+	"ecommerce-price-tracker/pkg/utils"
 	"errors"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
@@ -12,7 +13,8 @@ import (
 	"strconv"
 )
 
-func GetNameAndPrice(url string) (models.ProductInfo, error) {
+func GetProductInfo(url string) (models.ProductInfo, error) {
+	url = utils.StripURL(url)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return models.ProductInfo{}, fmt.Errorf("error creating request: %w", err)
@@ -75,13 +77,14 @@ func GetNameAndPrice(url string) (models.ProductInfo, error) {
 	doc.Find(".jLEJ7H").Each(func(i int, s *goquery.Selection) {
 		imgUrl, ok = s.Attr("src")
 		if !ok {
-			imgUrl = ""
+			imgUrl = "" // TODO: add placeholder image
+
 		}
 	})
 
 	ProductInfo.Name = name
 	ProductInfo.Price = price
 	ProductInfo.ImgLink = imgUrl
-	fmt.Println(ProductInfo)
+	ProductInfo.Url = url
 	return ProductInfo, nil
 }

@@ -10,7 +10,10 @@ func main() {
 	r := gin.Default()
 	routes.SetupRoutes(r)
 
-	db.InitWithDSN("host=localhost user=rudraaa password=admin dbname=webscraper port=5432 sslmode=disable")
+	db.InitWithDSN("host=localhost user=rudraaa password=admin dbname=webscraper port=5432 sslmode=disable") // TODO: .env-ify this
 
-	r.Run("localhost:3000")
+	err := r.Run("localhost:3000")
+	if err != nil {
+		return
+	}
 }

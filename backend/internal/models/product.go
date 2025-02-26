@@ -4,6 +4,8 @@ import (
 	"time"
 )
 
+//TODO: add `json:"fieldname"` thing to every attribute
+
 type PriceStamp struct {
 	ID        uint      `gorm:"primaryKey"`
 	ProductID uint      `gorm:"not null;index"`
@@ -26,4 +28,8 @@ type ProductInfo struct {
 	Price   float64
 	ImgLink string
 	Url     string
+}
+
+type ProductRequest struct {
+	Url string `json:"url"`
 }
