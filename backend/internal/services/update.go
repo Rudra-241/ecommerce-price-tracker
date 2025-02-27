@@ -36,19 +36,16 @@ func updateProductInTransaction(db *gorm.DB, product *models.Product) error {
 			return err
 		}
 
-		// Create a new price stamp record
 		priceStamp := models.PriceStamp{
 			ProductID: product.ID,
 			Price:     currentPrice,
 			ChangedAt: time.Now(),
 		}
 
-		// Save the new price stamp
 		if err := tx.Create(&priceStamp).Error; err != nil {
 			return err
 		}
 
-		// Update product direction based on price changes
 		if currentPrice < product.Price {
 			product.Direction = models.Decreased
 		} else if currentPrice > product.Price {

@@ -5,8 +5,9 @@ import (
 	"time"
 )
 
-func RunUpdaterJob() {
-	intervalHours := 2
+func RunUpdaterJob(h int) {
+	intervalHours := h
+	fmt.Printf("Running updater job in every: %d\n", intervalHours)
 	interval := time.Duration(intervalHours) * time.Hour
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
@@ -18,4 +19,5 @@ func RunUpdaterJob() {
 func updateProducts() {
 	UpdateAll()
 	fmt.Println("Products updated at:", time.Now().Format(time.RFC1123))
+
 }

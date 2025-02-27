@@ -8,14 +8,25 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"os"
+	"strconv"
 )
 
 func main() {
 	if err := godotenv.Load(); err != nil {
 		fmt.Println("Error loading .env file")
 	}
-
+	ginmode := os.Getenv("GIN_MODE")
+	if ginmode == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	} else {
+		gin.SetMode(gin.DebugMode)
+	}
 	r := gin.Default()
+
+	if err := r.SetTrustedProxies([]string{"127.0.0.1"}); err != nil {
+		fmt.Println("Error setting trusted proxies")
+		return
+	}
 	routes.SetupRoutes(r)
 
 	host := os.Getenv("DB_HOST")
@@ -39,7 +50,8 @@ func main() {
 		host, user, password, dbname, port, sslmode)
 
 	db.InitWithDSN(dsn)
-	go services.RunUpdaterJob()
+	updateIn, _ := strconv.Atoi(os.Getenv("UPDATE_IN"))
+	go services.RunUpdaterJob(updateIn)
 
 	serverPort := os.Getenv("SERVER_PORT")
 	if serverPort == "" {
