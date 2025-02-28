@@ -22,7 +22,7 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
-
+	//ISSUE: doesn't check if email is valid or not
 	hashedPassword, err := utils.HashPassword(registration.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -78,7 +78,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	fmt.Print(registration.ID)
-	
+
 	refreshToken, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.RefreshToken)
 	accessToken, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.AccessToken)
 	c.SetCookie("refresh-token", refreshToken, 7*24*3600, "/", "localhost", true, true)

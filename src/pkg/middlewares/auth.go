@@ -19,8 +19,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		if err != nil {
 			refreshToken, err := c.Cookie("refresh-token")
 			if err != nil {
-				c.JSON(http.StatusUnauthorized, gin.H{"error": "No authentication token provided"})
-				c.Abort()
+				c.Redirect(http.StatusFound, "/login")
 				return
 			}
 			refreshClaims, err := utils.VerifyToken(refreshToken, utils.RefreshToken)
