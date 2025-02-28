@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+		/>
+		<meta name="description" content="" />
+		<meta name="theme-color" content="#ffffff" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="robots" content="" />
+
+		<title>Price Tracker</title>
+		<!-- SEO Description -->
+		<meta
+			name="description"
+			content="Track price drops on your favorite products. Get instant alerts when prices fall and save money with Price Tracker&#x27;s powerful price tracking tools."
+		/>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Performance optimization: Preload critical resources -->
+		<link rel="preload" href="https://cdn.tailwindcss.com" as="script" />
+
+		<!-- Header Scripts -->
+		<script id="header-scripts">
+			// This script tag will be replaced with actual scripts.head content
+			if (window.scripts && window.scripts.head) {
+				document.getElementById("header-scripts").outerHTML =
+					window.scripts.head;
+			}
+		</script>
+
+		<!-- Preconnect -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<!-- Font stylesheet -->
+
+		<script
+			type="application/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+		></script>
+
+		<!-- Core CSS -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				tailwind.config = {
+					theme: {
+						extend: {
+							colors: {
+								primary: {
+									DEFAULT: "#3B82F6",
+									50: "#f8f8f8",
+									100: "#e8e8e8",
+									200: "#d3d3d3",
+									300: "#a3a3a3",
+									400: "#737373",
+									500: "#525252",
+									600: "#404040",
+									700: "#262626",
+									800: "#171717",
+									900: "#0a0a0a",
+									950: "#030303",
+								},
+								secondary: {
+									DEFAULT: "#10B981",
+									50: "#f8f8f8",
+									100: "#e8e8e8",
+									200: "#d3d3d3",
+									300: "#a3a3a3",
+									400: "#737373",
+									500: "#525252",
+									600: "#404040",
+									700: "#262626",
+									800: "#171717",
+									900: "#0a0a0a",
+									950: "#030303",
+								},
+								accent: {
+									DEFAULT: "#F59E0B",
+									50: "#f8f8f8",
+									100: "#e8e8e8",
+									200: "#d3d3d3",
+									300: "#a3a3a3",
+									400: "#737373",
+									500: "#525252",
+									600: "#404040",
+									700: "#262626",
+									800: "#171717",
+									900: "#0a0a0a",
+									950: "#030303",
+								},
+							},
+							fontFamily: {
+								sans: [
+									"Poppins, sans-serif",
+									"Inter",
+									"system-ui",
+									"-apple-system",
+									"BlinkMacSystemFont",
+									"Segoe UI",
+									"Helvetica Neue",
+									"Arial",
+									"sans-serif",
+								],
+								heading: [
+									"Inter, sans-serif",
+									"Inter",
+									"system-ui",
+									"sans-serif",
+								],
+								body: [
+									"Inter, sans-serif",
+									"Inter",
+									"system-ui",
+									"sans-serif",
+								],
+							},
+							spacing: {
+								18: "4.5rem",
+								22: "5.5rem",
+								30: "7.5rem",
+							},
+							maxWidth: {
+								"8xl": "88rem",
+								"9xl": "96rem",
+							},
+							animation: {
+								"fade-in": "fadeIn 0.5s ease-in",
+								"fade-out": "fadeOut 0.5s ease-out",
+								"slide-up": "slideUp 0.5s ease-out",
+								"slide-down": "slideDown 0.5s ease-out",
+								"slide-left": "slideLeft 0.5s ease-out",
+								"slide-right": "slideRight 0.5s ease-out",
+								"scale-in": "scaleIn 0.5s ease-out",
+								"scale-out": "scaleOut 0.5s ease-out",
+								"spin-slow": "spin 3s linear infinite",
+								"pulse-slow":
+									"pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+								"bounce-slow": "bounce 3s infinite",
+								float: "float 3s ease-in-out infinite",
+							},
+							keyframes: {
+								fadeIn: {
+									"0%": { opacity: "0" },
+									"100%": { opacity: "1" },
+								},
+								fadeOut: {
+									"0%": { opacity: "1" },
+									"100%": { opacity: "0" },
+								},
+								slideUp: {
+									"0%": {
+										transform: "translateY(20px)",
+										opacity: "0",
+									},
+									"100%": {
+										transform: "translateY(0)",
+										opacity: "1",
+									},
+								},
+								slideDown: {
+									"0%": {
+										transform: "translateY(-20px)",
+										opacity: "0",
+									},
+									"100%": {
+										transform: "translateY(0)",
+										opacity: "1",
+									},
+								},
+								slideLeft: {
+									"0%": {
+										transform: "translateX(20px)",
+										opacity: "0",
+									},
+									"100%": {
+										transform: "translateX(0)",
+										opacity: "1",
+									},
+								},
+								slideRight: {
+									"0%": {
+										transform: "translateX(-20px)",
+										opacity: "0",
+									},
+									"100%": {
+										transform: "translateX(0)",
+										opacity: "1",
+									},
+								},
+								scaleIn: {
+									"0%": {
+										transform: "scale(0.9)",
+										opacity: "0",
+									},
+									"100%": {
+										transform: "scale(1)",
+										opacity: "1",
+									},
+								},
+								scaleOut: {
+									"0%": {
+										transform: "scale(1.1)",
+										opacity: "0",
+									},
+									"100%": {
+										transform: "scale(1)",
+										opacity: "1",
+									},
+								},
+								float: {
+									"0%, 100%": { transform: "translateY(0)" },
+									"50%": { transform: "translateY(-10px)" },
+								},
+							},
+							aspectRatio: {
+								portrait: "3/4",
+								landscape: "4/3",
+								ultrawide: "21/9",
+							},
+						},
+					},
+					variants: {
+						extend: {
+							opacity: ["disabled"],
+							cursor: ["disabled"],
+							backgroundColor: ["active", "disabled"],
+							textColor: ["active", "disabled"],
+						},
+					},
+				};
+			});
+		</script>
+
+		<!-- Utilities and Components -->
+		<script
+			defer
+			src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js"
+		></script>
+		<script
+			defer
+			src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"
+		></script>
+
+		<!-- Optimized Font Loading -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<!-- Icons -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+			integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+
+		<!-- Dynamic Meta Tags -->
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="robots" content="" />
+		<meta name="google-site-verification" content="" />
+		<meta name="baidu-verification" content="" />
+		<meta name="yandex-verification" content="" />
+		<meta name="bing-verification" content="" />
+		<meta property="og:title" content="" />
+		<meta property="og:description" content="" />
+		<meta property="og:image" content="" />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content="PriceWatch Pro" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="" />
+		<meta name="twitter:description" content="" />
+		<meta name="twitter:image" content="" />
+
+		<link rel="icon" type="image/x-icon" href="" />
+
+		<style>
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				font-family: Poppins, sans-serif, Inter, system-ui, sans-serif;
+			}
+			body {
+				font-family: Inter, sans-serif, Inter, system-ui, sans-serif;
+			}
+		</style>
+	</head>
+	<body class="antialiased text-gray-800 min-h-screen flex flex-col">
+		<!-- Skip to main content link for accessibility -->
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-4 focus:bg-white focus:text-black"
+		>
+			Skip to main content
+		</a>
+
+		<!-- Main content area -->
+		<main id="main-content" class="flex-1 relative h-full">
+			<div id="root">
+				<nav
+					id="header"
+					class="bg-neutral-900 text-white fixed w-full z-50 transition-all duration-300 py-4"
+				>
+					<div
+						class="container mx-auto px-4 flex justify-between items-center"
+					>
+						<a
+							href="#hero"
+							class="text-2xl font-bold text-primary-500"
+						>
+							<span class="text-[#3B82F6]">Price</span
+							><span class="text-[#10B981]">Tracker</span>
+						</a>
+
+						<div class="hidden md:flex space-x-6">
+							<ul class="flex space-x-6"></ul>
+							<a
+								href="/register"
+								class="bg-[#F59E0B] hover:bg-[#F59E0B]/80 text-white px-4 py-2 rounded-md transition-colors duration-200"
+								>Sign Up Free</a
+							>
+						</div>
+
+						<button
+							id="mobile-menu-button"
+							class="md:hidden flex items-center"
+							aria-label="Toggle menu"
+							aria-expanded="false"
+							aria-controls="mobile-menu"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M4 6h16M4 12h16M4 18h16"
+								/>
+							</svg>
+						</button>
+					</div>
+
+					<div
+						id="mobile-menu"
+						class="md:hidden hidden bg-neutral-800 absolute top-full left-0 w-full"
+					>
+						<ul class="px-4 py-2">
+							<li class="py-2">
+								<a
+									href="#newsletter"
+									class="block bg-[#F59E0B] hover:bg-[#F59E0B]/80 text-white px-4 py-2 rounded-md text-center transition-colors duration-200"
+									>Sign Up Free</a
+								>
+							</li>
+						</ul>
+					</div>
+				</nav>
+
+				<script>
+					document.addEventListener("DOMContentLoaded", function () {
+						const mobileMenuButton =
+							document.getElementById("mobile-menu-button");
+						const mobileMenu =
+							document.getElementById("mobile-menu");
+
+						mobileMenuButton.addEventListener("click", function () {
+							const expanded =
+								mobileMenuButton.getAttribute(
+									"aria-expanded"
+								) === "true";
+							mobileMenuButton.setAttribute(
+								"aria-expanded",
+								!expanded
+							);
+							mobileMenu.classList.toggle("hidden");
+						});
+
+						// Change header background on scroll
+						const header = document.getElementById("header");
+						window.addEventListener("scroll", function () {
+							if (window.scrollY > 50) {
+								header.classList.add("py-2");
+								header.classList.add("bg-neutral-900/95");
+								header.classList.add("shadow-md");
+							} else {
+								header.classList.remove("py-2");
+								header.classList.remove("bg-neutral-900/95");
+								header.classList.remove("shadow-md");
+							}
+						});
+					});
+				</script>
+			</div>
+
+			<div id="root">
+				<section id="hero"
+					class="bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-white min-h-[70vh] flex items-center pt-24 pb-16 relative overflow-hidden">
+					<div class="absolute inset-0 z-0">
+						<div class="absolute top-20 left-1/4 w-72 h-72 bg-[#3B82F6]/20 rounded-full filter blur-3xl"></div>
+						<div class="absolute bottom-10 right-1/4 w-80 h-80 bg-[#10B981]/20 rounded-full filter blur-3xl"></div>
+						<div class="absolute top-1/3 right-1/3 w-40 h-40 bg-[#F59E0B]/20 rounded-full filter blur-3xl"></div>
+					</div>
+			
+					<div class="container mx-auto px-4 py-12 z-10 relative">
+						<div class="grid md:grid-cols-2 gap-8 items-center">
+							<!-- Left Content -->
+							<div class="animate__animated animate__fadeInLeft">
+								<span class="inline-block px-4 py-1 rounded-full bg-[#F59E0B]/20 text-[#F59E0B] font-medium text-sm mb-6">
+									Never overpay again
+								</span>
+								<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+									Track <span class="text-[#3B82F6]">Prices</span>, Save <span class="text-[#10B981]">Money</span>
+								</h1>
+								<p class="text-lg text-gray-300 mb-8">
+									Automatically monitor price drops on thousands of products across your favorite online stores.
+									Get instant alerts when prices fall and never miss a deal again.
+								</p>
+			
+								<div class="flex flex-col sm:flex-row gap-4">
+									<a href="/login"
+										class="btn bg-[#F59E0B] hover:bg-[#F59E0B]/80 text-white px-6 py-3 rounded-lg font-medium text-center">
+										Start Tracking Free
+									</a>
+								</div>
+							</div>
+			
+							<!-- Right Content (Graph Section) -->
+							<div class="flex justify-end animate__animated animate__fadeInRight">
+								<div class="bg-neutral-800/80 backdrop-blur-md rounded-2xl p-6 border border-neutral-700/50 shadow-xl">
+									<div class="flex items-center justify-between mb-6">
+										<div class="flex items-center">
+											<div class="w-10 h-10 bg-[#3B82F6] rounded-md flex items-center justify-center text-white">
+												<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+													stroke="currentColor">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+														d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+												</svg>
+											</div>
+											<h3 class="ml-3 text-lg font-medium">Price History</h3>
+										</div>
+										<div class="text-[#10B981] bg-[#10B981]/10 px-2.5 py-1 rounded-full text-xs font-medium">
+											-32% Today
+										</div>
+										
+									</div>
+			
+									<!-- Graph -->
+									<div class="w-full h-48 mb-4">
+										<svg class="w-full h-full" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+											<defs>
+												<linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+													<stop offset="0%" stop-color="#3B82F6" stop-opacity="0.3" />
+													<stop offset="100%" stop-color="#3B82F6" stop-opacity="0" />
+												</linearGradient>
+											</defs>
+											<path d="M0,120 C50,100 90,140 120,90 C150,40 180,80 220,50 C260,20 300,70 350,30 L350,150 L0,150 Z"
+												fill="url(#gradient)" />
+											<path d="M0,120 C50,100 90,140 120,90 C150,40 180,80 220,50 C260,20 300,70 350,30" fill="none"
+												stroke="#3B82F6" stroke-width="2" />
+											<circle cx="120" cy="90" r="4" fill="#3B82F6" />
+											<circle cx="220" cy="50" r="4" fill="#3B82F6" />
+											<circle cx="350" cy="30" r="6" fill="#F59E0B" stroke="#fff" stroke-width="2" />
+										</svg>
+									</div>
+									<div class="flex flex-col gap-2">
+										<div
+											class="flex justify-between items-center p-3 rounded-lg bg-neutral-700/30"
+										>
+											<div class="flex items-center">
+												<div
+													class="w-8 h-8 rounded-md bg-neutral-600 flex items-center justify-center mr-3"
+												>
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														class="h-4 w-4 text-white"
+														fill="none"
+														viewBox="0 0 24 24"
+														stroke="currentColor"
+													>
+														<path
+															stroke-linecap="round"
+															stroke-linejoin="round"
+															stroke-width="2"
+															d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+														/>
+													</svg>
+												</div>
+												<span>Sony WH-1000XM4</span>
+											</div>
+											<div>
+												<span
+													class="line-through text-gray-400 text-sm"
+													>$349.99</span
+												>
+												<span
+													class="text-[#10B981] font-medium ml-2"
+													>$238.00</span
+												>
+											</div>
+										</div>
+
+										<div
+											class="flex justify-between items-center p-3 rounded-lg bg-neutral-700/30"
+										>
+											<div class="flex items-center">
+												<div
+													class="w-8 h-8 rounded-md bg-neutral-600 flex items-center justify-center mr-3"
+												>
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														class="h-4 w-4 text-white"
+														fill="none"
+														viewBox="0 0 24 24"
+														stroke="currentColor"
+													>
+														<path
+															stroke-linecap="round"
+															stroke-linejoin="round"
+															stroke-width="2"
+															d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+														/>
+													</svg>
+												</div>
+												<span>MacBook Air M2</span>
+											</div>
+											<div>
+												<span
+													class="text-[#F59E0B] font-medium"
+													>Price Drop Alert</span
+												>
+											</div>
+										</div>
+									</div>
+								</div>
+			
+						
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+				</section>
+			</div>
+			
+
+			<div id="root">
+				<section id="features" class="bg-white py-20">
+					<div class="container mx-auto px-4">
+						<div class="text-center mb-16">
+							<span
+								class="inline-block px-4 py-1 rounded-full bg-[#3B82F6]/10 text-[#3B82F6] font-medium text-sm mb-4"
+								>Powerful Features</span
+							>
+							<h2 class="text-3xl md:text-4xl font-bold mb-4">
+								Smart Shopping,
+								<span class="text-[#3B82F6]"
+									>Smarter Savings</span
+								>
+							</h2>
+							<p class="text-gray-600 max-w-2xl mx-auto">
+								Our price tracker comes loaded with features
+								designed to help you save money and shop
+								smarter. Never miss a price drop again.
+							</p>
+						</div>
+
+						<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+							<!-- Feature 1 -->
+							<div
+								class="bg-neutral-50 rounded-xl p-6 border border-neutral-100 hover:shadow-lg transition-all duration-300 animate__animated animate__fadeIn"
+							>
+								<div
+									class="w-14 h-14 bg-[#3B82F6]/10 rounded-lg flex items-center justify-center mb-5"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-8 w-8 text-[#3B82F6]"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+										/>
+									</svg>
+								</div>
+								<h3 class="text-xl font-bold mb-3">
+									Real-Time Price Tracking
+								</h3>
+								<p class="text-gray-600 mb-4">
+									Monitor price changes across multiple stores
+									in real-time. Our system checks prices every
+									hour to ensure you never miss a deal.
+								</p>
+								<ul class="space-y-2">
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>Hourly price checks</span
+										>
+									</li>
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>Multi-store comparison</span
+										>
+									</li>
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>Historical price data</span
+										>
+									</li>
+								</ul>
+							</div>
+
+							<!-- Feature 2 -->
+							<div
+								class="bg-neutral-50 rounded-xl p-6 border border-neutral-100 hover:shadow-lg transition-all duration-300 animate__animated animate__fadeIn animate__delay-1s"
+							>
+								<div
+									class="w-14 h-14 bg-[#F59E0B]/10 rounded-lg flex items-center justify-center mb-5"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-8 w-8 text-[#F59E0B]"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+										/>
+									</svg>
+								</div>
+								<h3 class="text-xl font-bold mb-3">
+									Instant Price Drop Alerts
+								</h3>
+								<p class="text-gray-600 mb-4">
+									Get notified immediately when prices drop on
+									your tracked items via email, SMS, or push
+									notifications.
+								</p>
+								<ul class="space-y-2">
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>Email notifications</span
+										>
+									</li>
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>SMS alerts</span
+										>
+									</li>
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>Customizable thresholds</span
+										>
+									</li>
+								</ul>
+							</div>
+
+							<!-- Feature 3 -->
+							<div
+								class="bg-neutral-50 rounded-xl p-6 border border-neutral-100 hover:shadow-lg transition-all duration-300 animate__animated animate__fadeIn animate__delay-2s"
+							>
+								<div
+									class="w-14 h-14 bg-[#10B981]/10 rounded-lg flex items-center justify-center mb-5"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-8 w-8 text-[#10B981]"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+										/>
+									</svg>
+								</div>
+								<h3 class="text-xl font-bold mb-3">
+									Wishlist Management
+								</h3>
+								<p class="text-gray-600 mb-4">
+									Organize products into multiple wishlists.
+									Perfect for tracking gifts, seasonal
+									purchases, or different categories.
+								</p>
+								<ul class="space-y-2">
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>Multiple wishlists</span
+										>
+									</li>
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>Categorization</span
+										>
+									</li>
+									<li class="flex items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-[#10B981] mr-2"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										<span class="text-sm text-gray-600"
+											>Sharing capabilities</span
+										>
+									</li>
+								</ul>
+							</div></div>
+				</section>
+			</div>
+			<div id="root">
+				<section id="how-it-works" class="bg-neutral-50 py-20">
+					<div class="container mx-auto px-4">
+						<div class="text-center mb-16">
+							<span
+								class="inline-block px-4 py-1 rounded-full bg-[#10B981]/10 text-[#10B981] font-medium text-sm mb-4"
+								>Simple Process</span
+							>
+							<h2 class="text-3xl md:text-4xl font-bold mb-4">
+								How
+								<span class="text-[#10B981]">PriceTracker</span>
+								Works
+							</h2>
+							<p class="text-gray-600 max-w-2xl mx-auto">
+								Start saving money in just a few simple steps.
+								Our platform is designed to be intuitive and
+								powerful.
+							</p>
+						</div>
+
+						<div class="relative">
+							<!-- Connection Line -->
+							<div
+								class="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-[#3B82F6] via-[#10B981] to-[#F59E0B] transform -translate-y-1/2 z-0"
+							></div>
+
+							<div
+								class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10"
+							>
+								<!-- Step 1 -->
+								<div
+									class="bg-white rounded-xl p-6 border border-neutral-100 shadow-md hover:shadow-xl transition-all duration-300 animate__animated animate__fadeIn"
+								>
+									<div
+										class="flex items-center justify-center mb-6"
+									>
+										<div
+											class="w-16 h-16 bg-[#3B82F6] rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg"
+										>
+											1
+										</div>
+									</div>
+									<h3
+										class="text-xl font-bold text-center mb-4"
+									>
+										Add Products
+									</h3>
+									<p class="text-gray-600 text-center mb-6">
+										Simply paste the URL of any product you
+										want to track or use our browser
+										extension to add items with a single
+										click.
+									</p>
+
+									<div
+										class="bg-neutral-50 rounded-lg p-4 mb-4"
+									>
+										<div class="flex items-center">
+											<div
+												class="w-8 h-8 bg-[#3B82F6]/10 rounded-md flex items-center justify-center text-[#3B82F6]"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													class="h-5 w-5"
+													viewBox="0 0 20 20"
+													fill="currentColor"
+												>
+													<path
+														fill-rule="evenodd"
+														d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z"
+														clip-rule="evenodd"
+													/>
+												</svg>
+											</div>
+											<span
+												class="ml-2 text-sm font-medium"
+												>Paste Product URL</span
+											>
+										</div>
+									</div>
+
+									<div
+										class="group relative overflow-hidden rounded-lg"
+									>
+										<div
+											class="relative bg-neutral-800 rounded-lg p-4 border border-neutral-700"
+										>
+											<div
+												class="flex items-center justify-between mb-3"
+											>
+												<div class="flex items-center">
+													<div
+														class="w-10 h-10 bg-[#3B82F6] rounded-md flex items-center justify-center text-white"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															class="h-6 w-6"
+															fill="none"
+															viewBox="0 0 24 24"
+															stroke="currentColor"
+														>
+															<path
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+															/>
+														</svg>
+													</div>
+													<span
+														class="ml-2 text-white"
+														>Add New Product</span
+													>
+												</div>
+											</div>
+											<div
+												class="flex bg-neutral-700 rounded-md p-2 mb-3"
+											>
+												<input
+													type="text"
+													placeholder="Paste product URL here"
+													class="bg-transparent w-full text-white text-sm border-none outline-none"
+												/>
+											</div>
+											<a href="/login">
+												<button
+													class="w-full bg-[#3B82F6] text-white py-2 rounded-md text-sm font-medium hover:bg-[#3B82F6]/90 transition-colors"
+												>
+													Start Tracking
+												</button>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<!-- Step 2 -->
+								<div
+									class="bg-white rounded-xl p-6 border border-neutral-100 shadow-md hover:shadow-xl transition-all duration-300 animate__animated animate__fadeIn animate__delay-1s"
+								>
+									<div
+										class="flex items-center justify-center mb-6"
+									>
+										<div
+											class="w-16 h-16 bg-[#10B981] rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg"
+										>
+											2
+										</div>
+									</div>
+									<h3
+										class="text-xl font-bold text-center mb-4"
+									>
+										Set Alert Conditions
+									</h3>
+									<p class="text-gray-600 text-center mb-6">
+										Define your target price or choose to be
+										alerted for any price drop. Customize
+										notification methods to your preference.
+									</p>
+
+									<div
+										class="bg-neutral-50 rounded-lg p-4 mb-4"
+									>
+										<div class="flex items-center mb-3">
+											<div
+												class="w-8 h-8 bg-[#10B981]/10 rounded-md flex items-center justify-center text-[#10B981]"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													class="h-5 w-5"
+													viewBox="0 0 20 20"
+													fill="currentColor"
+												>
+													<path
+														fill-rule="evenodd"
+														d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+														clip-rule="evenodd"
+													/>
+												</svg>
+											</div>
+											<span
+												class="ml-2 text-sm font-medium"
+												>Price Threshold Alerts</span
+											>
+										</div>
+									</div>
+
+									<div
+										class="group relative overflow-hidden rounded-lg"
+									>
+										<div
+											class="relative bg-neutral-800 rounded-lg p-4 border border-neutral-700"
+										>
+											<h4
+												class="text-white text-sm font-medium mb-3"
+											>
+												Alert Settings
+											</h4>
+											<div class="mb-3">
+												<label
+													class="flex items-center text-white text-sm mb-1"
+												>
+													<span>Target Price:</span>
+												</label>
+												<div class="flex items-center">
+													<span
+														class="text-white bg-neutral-700 px-2 py-1 rounded-l-md"
+														>$</span
+													>
+													<input
+														type="number"
+														value="249.99"
+														class="bg-neutral-700 text-white text-sm py-1 px-2 w-full rounded-r-md border-none outline-none"
+													/>
+												</div>
+											</div>
+											<div class="mb-3">
+												<label
+													class="flex items-center text-white text-sm mb-2"
+												>
+												</label>
+											</div>
+											<div class="mb-3">
+												<p
+													class="text-white text-sm mb-2"
+												>
+													Notification Method:
+												</p>
+												<div class="flex gap-2">
+													<label
+														class="flex items-center text-white text-sm"
+													>
+														<input
+															type="checkbox"
+															class="mr-1"
+															checked
+														/>
+														<span>Email</span>
+													</label>
+													<label
+														class="flex items-center text-white text-sm"
+													>
+													</label>
+													<label
+														class="flex items-center text-white text-sm"
+													>
+													</label>
+												</div>
+											</div>
+											<button
+												class="w-full bg-[#10B981] text-white py-2 rounded-md text-sm font-medium hover:bg-[#10B981]/90 transition-colors"
+											>
+												Save Alert Settings
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<!-- Step 3 -->
+								<div
+									class="bg-white rounded-xl p-6 border border-neutral-100 shadow-md hover:shadow-xl transition-all duration-300 animate__animated animate__fadeIn animate__delay-2s"
+								>
+									<div
+										class="flex items-center justify-center mb-6"
+									>
+										<div
+											class="w-16 h-16 bg-[#F59E0B] rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg"
+										>
+											3
+										</div>
+									</div>
+									<h3
+										class="text-xl font-bold text-center mb-4"
+									>
+										Get Notified & Save
+									</h3>
+									<p class="text-gray-600 text-center mb-6">
+										Receive instant notifications when
+										prices drop to your target. Click
+										through to purchase at the perfect time.
+									</p>
+
+									<div
+										class="bg-neutral-50 rounded-lg p-4 mb-4"
+									>
+										<div class="flex items-center mb-3">
+											<div
+												class="w-8 h-8 bg-[#F59E0B]/10 rounded-md flex items-center justify-center text-[#F59E0B]"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													class="h-5 w-5"
+													viewBox="0 0 20 20"
+													fill="currentColor"
+												>
+													<path
+														d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
+													/>
+												</svg>
+											</div>
+											<span
+												class="ml-2 text-sm font-medium"
+												>Instant Notifications</span
+											>
+										</div>
+			
+									</div>
+
+									<div
+										class="group relative overflow-hidden rounded-lg"
+									>
+										<div
+											class="relative bg-neutral-800 rounded-lg p-4 border border-neutral-700"
+										>
+											<div
+												class="flex items-center justify-between mb-3"
+											>
+												<div class="flex items-center">
+													<div
+														class="w-10 h-10 bg-[#F59E0B] rounded-md flex items-center justify-center text-white"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															class="h-6 w-6"
+															fill="none"
+															viewBox="0 0 24 24"
+															stroke="currentColor"
+														>
+															<path
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+															/>
+														</svg>
+													</div>
+													<span
+														class="ml-2 text-white text-lg"
+														>Price Alert!</span
+													>
+												</div>
+												<span
+													class="bg-[#F59E0B] text-white text-xs px-2 py-1 rounded-full animate-pulse"
+													>Just Now</span
+												>
+											</div>
+											<div class="mb-3">
+												<p
+													class="text-white text-sm mb-1"
+												>
+													Sony WH-1000XM4 Wireless
+													Headphones
+												</p>
+												<div
+													class="flex items-center justify-between"
+												>
+													<div>
+														<span
+															class="text-gray-400 text-xs line-through"
+															>$349.99</span
+														>
+														<span
+															class="text-[#10B981] font-bold ml-2"
+															>$238.00</span
+														>
+													</div>
+													<span
+														class="text-[#10B981] bg-[#10B981]/10 px-2 py-1 rounded-full text-xs font-medium"
+													>
+														-32% Price Drop
+													</span>
+												</div>
+											</div>
+											<div class="flex gap-2">
+												<button
+													class="flex-1 bg-[#F59E0B] text-white py-2 rounded-md text-sm font-medium hover:bg-[#F59E0B]/90 transition-colors"
+												>
+													View Deal
+												</button>
+												<button
+													class="px-2 bg-neutral-700 text-white rounded-md hover:bg-neutral-600 transition-colors"
+												>
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														class="h-5 w-5"
+														viewBox="0 0 20 20"
+														fill="currentColor"
+													>
+														<path
+															d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
+														/>
+													</svg>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						
+								
+								
+
+		
+						<!-- Bottom Bar -->
+						<div
+							class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center"
+						>
+							<div class="text-gray-500 text-sm mb-4 md:mb-0">
+								&copy; 2025 PriceTracker. All rights reserved.
+							</div>
+					</div>
+
+					<!-- Back to Top Button -->
+					<button
+						id="back-to-top"
+						class="fixed bottom-8 right-8 bg-[#3B82F6] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-300 opacity-0 translate-y-10 hover:bg-[#3B82F6]/90"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M5 15l7-7 7 7"
+							/>
+						</svg>
+					</button>
+
+					<script>
+						document.addEventListener(
+							"DOMContentLoaded",
+							function () {
+								const backToTopButton =
+									document.getElementById("back-to-top");
+
+								// Show/hide button based on scroll position
+								window.addEventListener("scroll", function () {
+									if (window.pageYOffset > 300) {
+										backToTopButton.classList.remove(
+											"opacity-0",
+											"translate-y-10"
+										);
+										backToTopButton.classList.add(
+											"opacity-100",
+											"translate-y-0"
+										);
+									} else {
+										backToTopButton.classList.remove(
+											"opacity-100",
+											"translate-y-0"
+										);
+										backToTopButton.classList.add(
+											"opacity-0",
+											"translate-y-10"
+										);
+									}
+								});
+
+								// Scroll to top when button is clicked
+								backToTopButton.addEventListener(
+									"click",
+									function () {
+										window.scrollTo({
+											top: 0,
+											behavior: "smooth",
+										});
+									}
+								);
+							}
+						);
+					</script>
+				</footer>
+			</div>
+		</main>
+	</body>
+</html>
