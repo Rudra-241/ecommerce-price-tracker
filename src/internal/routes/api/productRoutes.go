@@ -1,4 +1,4 @@
-package routes
+package api
 
 import (
 	"ecommerce-price-tracker/internal/handlers"

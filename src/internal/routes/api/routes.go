@@ -1,11 +1,11 @@
-package routes
+package api
 
 import (
 	"ecommerce-price-tracker/pkg/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(r *gin.Engine) {
+func SetupAPIRoutes(r *gin.Engine) {
 	api := r.Group("/api")
 	api.Use(middlewares.AuthMiddleware())
 

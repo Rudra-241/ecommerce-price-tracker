@@ -2,7 +2,8 @@ package main
 
 import (
 	"ecommerce-price-tracker/internal/db"
-	"ecommerce-price-tracker/internal/routes"
+	"ecommerce-price-tracker/internal/routes/api"
+	"ecommerce-price-tracker/internal/routes/web"
 	"ecommerce-price-tracker/internal/services"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -15,8 +16,8 @@ func main() {
 	if err := godotenv.Load(); err != nil {
 		fmt.Println("Error loading .env file")
 	}
-	ginmode := os.Getenv("GIN_MODE")
-	if ginmode == "release" {
+	GinMode := os.Getenv("GIN_MODE")
+	if GinMode == "release" {
 		gin.SetMode(gin.ReleaseMode)
 	} else {
 		gin.SetMode(gin.DebugMode)
@@ -27,7 +28,8 @@ func main() {
 		fmt.Println("Error setting trusted proxies")
 		return
 	}
-	routes.SetupRoutes(r)
+	api.SetupAPIRoutes(r)
+	web.SetUpWebRoutes(r)
 
 	host := os.Getenv("DB_HOST")
 	user := os.Getenv("DB_USER")
@@ -52,7 +54,9 @@ func main() {
 	db.InitWithDSN(dsn)
 	updateIn, _ := strconv.Atoi(os.Getenv("UPDATE_IN"))
 	go services.RunUpdaterJob(updateIn)
-
+	if GinMode == "debug" {
+		go services.UpdateAll()
+	}
 	serverPort := os.Getenv("SERVER_PORT")
 	if serverPort == "" {
 		serverPort = "3000"

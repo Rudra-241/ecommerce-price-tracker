@@ -1,2 +1,2 @@
-/backend/.env
-/backend/bin/*
+/src/.env
+/src/bin/*
