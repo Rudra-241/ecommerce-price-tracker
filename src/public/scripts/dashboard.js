@@ -34,17 +34,17 @@ async function loadProductDetails(id) {
     renderChart(data.price_history);
 }
 
-let priceChart = null; // Store chart instance globally
+let priceChart = null; 
 
 function renderChart(history) {
     const ctx = document.getElementById("priceChart").getContext("2d");
 
-    // Destroy previous chart instance if it exists
+    
     if (priceChart) {
         priceChart.destroy();
     }
 
-    // Create new chart instance and store it
+    
     priceChart = new Chart(ctx, {
         type: "line",
         data: {
@@ -56,7 +56,7 @@ function renderChart(history) {
                     borderColor: "#007bff",
                     backgroundColor: "rgba(0, 123, 255, 0.1)",
                     fill: true,
-                    tension: 0.4, // Smooth curve
+                    tension: 0.4, 
                 },
             ],
         },
