@@ -55,8 +55,15 @@ func main() {
 	updateIn, _ := strconv.Atoi(os.Getenv("UPDATE_IN"))
 	go services.RunUpdaterJob(updateIn)
 	if GinMode == "debug" {
+		go func() {
+			err := services.EmailAll(db.GetDB())
+			if err != nil {
+				fmt.Println(err)
+			}
+		}()
 		go services.UpdateAll()
 	}
+
 	serverPort := os.Getenv("SERVER_PORT")
 	if serverPort == "" {
 		serverPort = "3000"

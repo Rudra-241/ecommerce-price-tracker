@@ -107,6 +107,5 @@ func VerifyToken(tokenString string, tokenType TokenType) (*CustomClaims, error)
 	if claims.TokenType != tokenType {
 		return nil, errors.New("invalid token type")
 	}
-
 	return claims, nil
 }
