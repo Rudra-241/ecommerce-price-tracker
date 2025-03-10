@@ -126,17 +126,17 @@
 
 <script>
     document.getElementById('signInBtn').addEventListener('click', function() {
-        // Get the email and password values
+        
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        // Create the data object
+        
         const data = {
             email: email,
             password: password
         };
 
-        // Make the POST request
+        
         fetch('/api/register', {
             method: 'POST',
             headers: {
@@ -152,7 +152,7 @@
             })
             .then(data => {
                 console.log('Registration successful:', data);
-                // You can redirect or show success message here
+                
                 alert('Registration successful!');
             })
             .catch(error => {
