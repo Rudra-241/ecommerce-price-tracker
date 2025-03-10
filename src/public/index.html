@@ -35,7 +35,7 @@
 
 		
 		<script id="header-scripts">
-			// This script tag will be replaced with actual scripts.head content
+			
 			if (window.scripts && window.scripts.head) {
 				document.getElementById("header-scripts").outerHTML =
 					window.scripts.head;
@@ -1247,9 +1247,7 @@
 
 						
 								
-								
-
-		
+			
 						
 						<div
 							class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center"
@@ -1287,7 +1285,6 @@
 								const backToTopButton =
 									document.getElementById("back-to-top");
 
-								// Show/hide button based on scroll position
 								window.addEventListener("scroll", function () {
 									if (window.pageYOffset > 300) {
 										backToTopButton.classList.remove(
@@ -1310,7 +1307,6 @@
 									}
 								});
 
-								// Scroll to top when button is clicked
 								backToTopButton.addEventListener(
 									"click",
 									function () {
