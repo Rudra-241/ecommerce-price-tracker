@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"regexp"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -23,6 +24,16 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	//ISSUE: doesn't check if email is valid or not
+	if !isValidEmail(registration.Email) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Invalid email address",
+		})
+	}
+	if !isValidPassword(registration.Password) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Invalid password",
+		})
+	}
 	hashedPassword, err := utils.HashPassword(registration.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -87,4 +98,14 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{
 		"message": "User created successfully",
 	})
+}
+
+func isValidEmail(email string) bool {
+	emailRegex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+	re := regexp.MustCompile(emailRegex)
+	return re.MatchString(email)
+}
+
+func isValidPassword(password string) bool {
+	return len(password) >= 3
 }

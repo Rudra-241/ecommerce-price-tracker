@@ -192,17 +192,14 @@
 			loginButton.textContent = 'Signing in...';
 
 			try {
-				// Get the current domain
 				const domain = window.location.origin;
 				const apiUrl = `${domain}/api/login`;
 
-				// Prepare the request payload
 				const payload = {
 					email: emailInput.value.trim(),
 					password: passwordInput.value.trim()
 				};
 
-				// Make the API request
 				const response = await fetch(apiUrl, {
 					method: 'POST',
 					headers: {
@@ -211,14 +208,11 @@
 					body: JSON.stringify(payload)
 				});
 
-				// Handle the response
 				if (response.ok) {
-					// Login successful
 					const data = await response.json();
 					successMessage.style.display = 'block';
 					console.log('Login successful:', data);
 
-					// Store token in localStorage if provided
 					if (data.token) {
 						localStorage.setItem('authToken', data.token);
 					}
@@ -230,7 +224,7 @@
 				} else {
 					// Login failed
 					const errorData = await response.json();
-					errorMessage.textContent = errorData.message || 'Login failed. Please check your credentials.';
+					errorMessage.textContent = errorData.message || 'Login failed. Please check your credentials. ';
 					errorMessage.style.display = 'block';
 					console.error('Login failed:', errorData);
 				}
