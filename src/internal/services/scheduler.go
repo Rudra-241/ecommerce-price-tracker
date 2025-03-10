@@ -13,7 +13,7 @@ func RunUpdaterJob(h int) {
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
 	for range ticker.C {
-		//updateProducts()
+		updateProducts()
 		emailAll()
 	}
 }

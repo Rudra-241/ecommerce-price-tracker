@@ -21,7 +21,7 @@ func (p *PriceState) Scan(value interface{}) error {
 	return nil
 }
 
-func (p *Product) AfterUpdate(tx *gorm.DB) (err error) {
+func (p *Product) AfterUpdate(_ *gorm.DB) (err error) {
 	p.ModifiedAt = time.Now()
 	return nil
 }

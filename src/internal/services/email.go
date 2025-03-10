@@ -13,10 +13,10 @@ import (
 func sendMail(recipient string, body string) error {
 	message := gomail.NewMessage()
 
-	message.SetHeader("From", "pricetracker@demomailtrap.com")
+	message.SetHeader("From", os.Getenv("ALERT_EMAIL_ADDRESS"))
 
 	if gin.Mode() == "debug" {
-		log.Print("Mail for ", recipient, " but forwarding to rudrasaxena2004@gmail.com")
+		log.Print("Mail for ", recipient, " but forwarding to ", os.Getenv("MAILTRAP_RECIPIENT"))
 		message.SetHeader("To", os.Getenv("MAILTRAP_RECIPIENT"))
 	} else {
 		message.SetHeader("To", recipient)
