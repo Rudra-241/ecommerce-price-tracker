@@ -17,7 +17,7 @@ A modular, efficient backend in Go for tracking ecommerce product prices over ti
 git clone https://github.com/Rudra-241/ecommerce-price-tracker.git
 cd ecommerce-price-tracker
 cp .env.example .env
-# Fill in DB, SMTP, and config values
+# Fill in DB, mailtrap key, and config values
 
 # Build and run the project using Make
 make run
