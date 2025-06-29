@@ -1,27 +1,19 @@
 package web
 
 import (
-	"ecommerce-price-tracker/pkg/middlewares"
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 func SetUpWebRoutes(r *gin.Engine) {
-	r.Static("/styles", "public/styles")
 	r.Static("/assets", "public/assets")
-	r.Static("/scripts", "public/scripts")
-
-	r.LoadHTMLGlob("public/*.html")
-	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
-	})
-	r.GET("/login", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "login.html", nil)
-	})
-	r.GET("/register", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "register.html", nil)
-	})
-	r.GET("/dashboard", middlewares.AuthMiddleware(), func(c *gin.Context) {
-		c.HTML(http.StatusOK, "dashboard.html", nil)
+	r.NoRoute(func(c *gin.Context) {
+		if strings.HasPrefix(c.Request.URL.Path, "/api") {
+			c.JSON(http.StatusNotFound, gin.H{"error": "not found"})
+			return
+		}
+		c.File("public/index.html")
 	})
 }

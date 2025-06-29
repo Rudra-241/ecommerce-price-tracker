@@ -17,7 +17,7 @@ func InitWithDSN(dsn string) *gorm.DB {
 	if err != nil {
 		panic("Cannot open DB")
 	}
-	err = db.AutoMigrate(&models.User{}, &models.Product{}, &models.PriceStamp{})
+	err = db.AutoMigrate(&models.User{}, &models.Product{}, &models.PriceStamp{}, &models.StoreSelector{})
 	if err != nil {
 		panic("Cannot migrate DB")
 	}

@@ -1,0 +1,21 @@
+<html>
+<body>
+	<p>Hello {{.Recipient}},</p>
+	<p>Here is an update on the products you are tracking:</p>
+	<table border="1" cellpadding="5" cellspacing="0">
+		<tr>
+			<th>Image</th>
+			<th>Product</th>
+			<th>Price</th>
+			<th>Status</th>
+		</tr>
+		<tr>
+			<td><img src="{{.Product.ImgLink}}" alt="{{.Product.Name}}" width="100"></td>
+			<td><a href="{{.Product.Url}}">{{.Product.Name}}</a></td>
+			<td>₹{{printf "%.2f" .Product.Price}}</td>
+			<td style="color: {{directionColor .Product.Direction}};"><strong>{{.Product.Direction}}</strong></td>
+		</tr>
+	</table>
+	<p>Best Regards,<br>Your Price Tracker</p>
+</body>
+</html>

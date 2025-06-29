@@ -5,7 +5,6 @@ import (
 	"ecommerce-price-tracker/internal/models"
 	"ecommerce-price-tracker/pkg/utils"
 	"errors"
-	"fmt"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -23,16 +22,17 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	//ISSUE: doesn't check if email is valid or not
 	if !isValidEmail(registration.Email) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Invalid email address",
 		})
+		return
 	}
 	if !isValidPassword(registration.Password) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Invalid password",
 		})
+		return
 	}
 	hashedPassword, err := utils.HashPassword(registration.Password)
 	if err != nil {
@@ -88,7 +88,6 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	fmt.Print(registration.ID)
 
 	refreshToken, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.RefreshToken)
 	accessToken, _ := utils.CreateToken(strconv.Itoa(int(registration.ID)), registration.Email, models.Customer, utils.AccessToken)

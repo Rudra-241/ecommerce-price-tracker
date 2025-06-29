@@ -4,7 +4,6 @@ import (
 	"ecommerce-price-tracker/internal/db"
 	"ecommerce-price-tracker/internal/models"
 	"ecommerce-price-tracker/pkg/utils"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -41,11 +40,9 @@ func LoginUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "User doesn't exists",
 		})
-		c.Redirect(http.StatusBadRequest, "/api/register")
 		return
 	}
 	if err := utils.VerifyPassword(actualUser.Password, login.Password); err == nil {
-		fmt.Println(login.ID)
 		refreshToken, _ := utils.CreateToken(strconv.Itoa(int(actualUser.ID)), actualUser.Email, models.Customer, utils.RefreshToken)
 		accessToken, _ := utils.CreateToken(strconv.Itoa(int(actualUser.ID)), actualUser.Email, models.Customer, utils.AccessToken)
 		c.SetCookie("refresh-token", refreshToken, 7*24*3600, "/", "localhost", true, true)

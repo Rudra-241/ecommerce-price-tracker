@@ -10,10 +10,11 @@ import (
 type PriceState string
 
 const (
-	Increased  = "Increased"
-	Decreased  = "Decreased"
-	Unchanged  = "Unchanged"
-	BelowStart = "BelowStart"
+	Increased      = "Increased"
+	Decreased      = "Decreased"
+	Unchanged      = "Unchanged"
+	// BelowStart     = "BelowStart"
+	BelowRecentAvg = "BelowRecentAvg"
 )
 
 func (p *PriceState) Scan(value interface{}) error {

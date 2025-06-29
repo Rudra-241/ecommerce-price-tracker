@@ -3,7 +3,7 @@ package handlers
 import (
 	"ecommerce-price-tracker/internal/db"
 	"ecommerce-price-tracker/internal/models"
-	"ecommerce-price-tracker/internal/services"
+	"ecommerce-price-tracker/internal/services/scraper"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -30,7 +30,15 @@ func CreateProduct(c *gin.Context) {
 	}
 
 	url := product.Url
-	productInfo, err := services.GetProductInfo(url)
+	s, err := scraper.For(url)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Unsupported store URL",
+		})
+		return
+	}
+
+	productInfo, err := s.GetProductInfo(url)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Failed to get product info",
@@ -227,4 +235,30 @@ func GetPriceHistory(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, response)
+}
+
+func DeleteProduct(c *gin.Context) {
+	uid, _ := c.Get("userID")
+	pid := c.Param("id")
+
+	d := db.GetDB()
+
+	var u models.User
+	if err := d.Where("id = ?", uid).First(&u).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+
+	var p models.Product
+	if err := d.First(&p, pid).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "product not found"})
+		return
+	}
+
+	if err := d.Model(&u).Association("TrackedProducts").Delete(&p); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to untrack"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "untracked"})
 }

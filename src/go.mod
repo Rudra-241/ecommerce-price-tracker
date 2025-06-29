@@ -1,12 +1,12 @@
 module ecommerce-price-tracker
 
-go 1.22.11
-toolchain go1.24.1
+go 1.23.0
 
 require (
 	github.com/PuerkitoBio/goquery v1.9.1
 	github.com/gin-gonic/gin v1.10.0
 	github.com/joho/godotenv v1.5.1
+	github.com/rabbitmq/amqp091-go v1.10.0
 	gopkg.in/mail.v2 v2.3.1
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gorm v1.25.12
