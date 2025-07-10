@@ -1,0 +1,120 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens. Tailwind v4 reads `--color-*` / `--font-*` here and generates
+ * the matching utilities (bg-primary, text-accent, font-display, ...).
+ */
+@theme {
+  --color-text: #141c02;
+  --color-background: #fbfef4;
+  --color-primary: #b9f027;
+  --color-secondary: #7aa6f5;
+  --color-accent: #a449f2;
+
+  /* tints used for soft surfaces / badges */
+  --color-primary-soft: #eafbc2;
+  --color-secondary-soft: #e3ecfd;
+  --color-accent-soft: #efe1fd;
+
+  --font-display: 'Belanosima', ui-sans-serif, system-ui, sans-serif;
+
+  /* hard offset shadow for the neobrutalist look */
+  --shadow-hard: 4px 4px 0 0 #141c02;
+  --shadow-hard-sm: 2px 2px 0 0 #141c02;
+  --shadow-hard-lg: 6px 6px 0 0 #141c02;
+}
+
+@layer base {
+  html {
+    font-size: 100%;
+  }
+
+  body {
+    font-family: var(--font-display);
+    font-weight: 400;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  h1 {
+    font-size: 4.21rem;
+  }
+  h2 {
+    font-size: 3.158rem;
+  }
+  h3 {
+    font-size: 2.369rem;
+  }
+  h4 {
+    font-size: 1.777rem;
+  }
+  h5 {
+    font-size: 1.333rem;
+  }
+  small {
+    font-size: 0.75rem;
+  }
+}
+
+@layer components {
+  /* Card with a thick border + hard offset shadow */
+  .card {
+    @apply rounded-2xl border-2 border-text bg-background;
+    box-shadow: var(--shadow-hard);
+  }
+
+  /* Inputs */
+  .field {
+    @apply w-full rounded-xl border-2 border-text bg-white px-4 py-3 text-text
+      outline-none transition focus:-translate-y-0.5;
+  }
+  .field:focus {
+    box-shadow: var(--shadow-hard-sm);
+  }
+  .field::placeholder {
+    @apply text-text/40;
+  }
+
+  /* Buttons: shared base, then color variants */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border-2
+      border-text px-5 py-3 font-semibold transition active:translate-x-0.5
+      active:translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50;
+    box-shadow: var(--shadow-hard-sm);
+  }
+  .btn:hover:not(:disabled) {
+    @apply -translate-x-0.5 -translate-y-0.5;
+    box-shadow: var(--shadow-hard);
+  }
+  .btn:active:not(:disabled) {
+    box-shadow: none;
+  }
+  .btn-primary {
+    @apply bg-primary text-text;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-text;
+  }
+  .btn-accent {
+    @apply bg-accent text-white;
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent shadow-none;
+    box-shadow: none;
+  }
+  .btn-ghost:hover:not(:disabled) {
+    @apply translate-x-0 translate-y-0 bg-text/5;
+    box-shadow: none;
+  }
+}
